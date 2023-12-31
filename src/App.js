@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import LandingPage from "./components/environment/LandingPage";
+import './index.css';
+import './css/atom/toggle.css'
+import {useState} from "react";
 
 function App() {
+
+  const [themeSelection, setThemeSelection] = useState(true);
+  const theme = themeSelection ? 'dark-theme' : 'light-theme';
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div id="page" className={theme}>
+          <LandingPage
+              themeSelection={themeSelection}
+              setThemeSelection={e => setThemeSelection(e.target.checked)}
+           />
+      </div>
   );
 }
 
