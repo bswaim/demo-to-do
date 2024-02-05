@@ -138,7 +138,9 @@ function ListItem({
 
     function onDeleteItem() {
         const updatedArray = deleteItem(id, currentListView);
-        setListHistoryState(updatedArray, listHistoryState);
+        const updateCurrentState = updateLatestChangeToDoHistory(updatedArray, listHistoryState);
+
+        setListHistoryState(updateCurrentState);
     }
 
     return (

@@ -56,7 +56,7 @@ function ToDoApp() {
     }
 
     return (
-        <div id='todo-id' className='todo-container'>
+        <div id='todo-id' className='todo-container bg-primary-bg max-w-2xl rounded-2xl border-2 border-solid border-black p-4'>
             <h1 className='text-center text-xl border-b-2 border-b-primary border-solid pb-2 pl-4 flex justify-between'>
                 <div>To-Do App</div>
                 {/* DELETE ALL ITEMS BUTTON */}
@@ -97,25 +97,26 @@ function ToDoApp() {
             />
 
             {/* UNDO BUTTON */}
-            <div className='flex justify-between mx-4 mt-8 text-2xl'>
-            <button
-                id='undo'
-                className={undoEnabledLogic ? 'cursor-pointer' : 'cursor-default'}
-                onClick={() => undoListStateChange()}
-                disabled={!(undoEnabledLogic)}
-            >
-                <FontAwesomeIcon icon={faRotateLeft} className={undoEnabledLogic ? 'text-secondary-text' : 'text-gray-500'}/>
-            </button>
+            <div className='flex justify-between px-4 mt-8 text-2xl bg-white rounded-b-lg'>
+                <button
+                    id='undo'
+                    className={undoEnabledLogic ? 'cursor-pointer' : 'cursor-default'}
+                    onClick={() => undoListStateChange()}
+                    disabled={!(undoEnabledLogic)}
+                >
+                    <FontAwesomeIcon icon={faRotateLeft} className={undoEnabledLogic ? 'text-secondary-text' : 'text-gray-500'}/>
+                </button>
 
-            {/* REDO BUTTON */}
-            <button
-                id='redo'
-                className='cursor-pointer'
-                onClick={() => redoListStateChange()}
-                disabled={!(redoEnabledLogic)}
-            >
-                <FontAwesomeIcon icon={faRotateRight} className={redoEnabledLogic ? 'text-secondary-text' : 'text-gray-500'}/>
-            </button></div>
+                {/* REDO BUTTON */}
+                <button
+                    id='redo'
+                    className='cursor-pointer'
+                    onClick={() => redoListStateChange()}
+                    disabled={!(redoEnabledLogic)}
+                >
+                    <FontAwesomeIcon icon={faRotateRight} className={redoEnabledLogic ? 'text-secondary-text' : 'text-gray-500'}/>
+                </button>
+            </div>
         </div>
     );
 }

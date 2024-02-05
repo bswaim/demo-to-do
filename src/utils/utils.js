@@ -4,7 +4,6 @@ import {IS_CURRENT, MAX_HISTORY} from "./constants";
 
 // ToDoApp Utils
 export const changeEditMode = (itemId, editMode, list) => {
-    // const updatedArray = slice(list);
     const indexOfItemToUpdate = findIndex(list, x => x.id === itemId);
     const updatedObject = list[indexOfItemToUpdate];
 
@@ -62,41 +61,17 @@ export const changeCheckedState = (itemId, list, checked) => {
     return updatedArray;
 }
 
-// export const checkItem = (itemId, list) => {
-//     const updatedArray = slice(list);
-//     const indexOfCheckedItem = findIndex(updatedArray, x => x.id === itemId);
-//     const itemToMove = updatedArray[indexOfCheckedItem];
-//
-//     itemToMove.checked = true;
-//     itemToMove.editMode = false;
-//     updatedArray.splice(indexOfCheckedItem, 1); // remove original item
-//     updatedArray.push(itemToMove); // add it to end of list
-//
-//     return [...updatedArray];
-// }
-//
-// export const unCheckItem = (itemId, list) => {
-//     const updatedArray = slice(list);
-//     const indexOfUnCheckedItem = findIndex(updatedArray, x => x.id === itemId);
-//     const itemToMove = updatedArray[indexOfUnCheckedItem];
-//     const newIndex = findIndex(updatedArray, x => x.checked); // find first index of completed item
-//
-//     itemToMove.checked = false;
-//     itemToMove.editMode = false;
-//
-//     updatedArray.splice(indexOfUnCheckedItem, 1); // remove original item
-//     updatedArray.splice(newIndex, 0, itemToMove); // add it to bottom of unchecked items
-//
-//     return [...updatedArray];
-// }
-
 export const deleteItem = (itemId, list) => {
-    const updatedArray = slice(list);
-    const indexOfItemToDelete = findIndex(updatedArray, x => x.id === itemId);
+    // const updatedArray = slice(list);
+    // const indexOfItemToDelete = findIndex(updatedArray, x => x.id === itemId);
+    //
+    // updatedArray.splice(indexOfItemToDelete, 1); // delete item
+    //
+    // return [...updatedArray];
+    let updatedArray = list.slice();
+    updatedArray = filter(updatedArray, x => !(x?.id === itemId));
 
-    updatedArray.splice(indexOfItemToDelete, 1); // delete item
-
-    return [...updatedArray];
+    return updatedArray;
 }
 export const removeCheckedItems = (list) => {
     const updatedArray = slice(list);
@@ -111,26 +86,6 @@ export const clearIsCurrentProps = (historyList) => {
     });
 }
 
-
-// todo: DO WE NEED THIS:??
-// export const removeEmptyTextItems = (historyList) => {
-//     let updatedArray = slice(historyList);
-//     return filter(updatedArray, x => { // will this mutate original???
-//             if(!isEmpty(x.list)) {
-//                 // if text is empty, delete that item
-//                 const filteredList = filter(x.list, eachListItem => isEmpty(eachListItem?.text));
-//                 if(isEmpty(filteredList)) return true;
-//                 else return false;
-//                 // if remaining list items exist, set edit mode to false for all
-//                 // else x.list = map(filteredList, eachFilteredItem => {
-//                 //     if(eachFilteredItem.editMode) eachFilteredItem.editMode = false;
-//                 //     return eachFilteredItem;
-//                 // });
-//             }
-//             return true;
-//         }
-//     );
-// }
 export const removeAllEditModeFromHistory = (historyList) => {
     // filter main list by isInEditMode
     let updatedArray = slice(historyList);
@@ -145,23 +100,7 @@ export const removeAllEditModeFromHistory = (historyList) => {
         return x;
     })
 }
-// export const setEditModeFalseAndRemoveEmptyText = (historyList) => {
-//     let updatedArray = slice(historyList);
-//     return map(updatedArray, x => {
-//             if(!isEmpty(x.list)) {
-//                 // if text is empty, delete that item
-//                 const filteredList = filter(x.list, eachListItem => !isEmpty(eachListItem?.text));
-//                 if(isEmpty(filteredList)) x.list = [];
-//                 // if remaining list items exist, set edit mode to false for all
-//                 else x.list = map(filteredList, eachFilteredItem => {
-//                     if(eachFilteredItem.editMode) eachFilteredItem.editMode = false;
-//                     return eachFilteredItem;
-//                 });
-//             }
-//             return x;
-//         }
-//     );
-// }
+
 export const moveCurrentState = (listHistory, undo = true) => {
     const updatedHistory = slice(listHistory);
     const currentListIndex = findIndex(updatedHistory, x => x.isCurrent === true);
@@ -174,10 +113,12 @@ export const moveCurrentState = (listHistory, undo = true) => {
     return updatedHistory;
 }
 
-export const limitListLength = (list, length) => {
-    const updatedArray = slice(list);
-    const numberOfItemsToRemove = updatedArray.length - length;
-    return updatedArray.splice(0, numberOfItemsToRemove);
+export const limitListLength = (list, maxLength) => {
+    let updatedArray = list.slice();
+    const numberOfItemsToRemove = list.length - maxLength;
+    updatedArray = filter(updatedArray, (x, index) => index > numberOfItemsToRemove);
+
+    return updatedArray;
 }
 
 export const updateLatestChangeToDoHistory = (newListItem, historyToUpdate, editMode = false) => {
@@ -196,18 +137,16 @@ export const updateLatestChangeToDoHistory = (newListItem, historyToUpdate, edit
 
     // return isCurrent as false for all
     if(updatedHistory.length > 0) updatedHistory = clearIsCurrentProps(updatedHistory);
-    // if(updatedHistory.length > 0 && !editMode) updatedHistory = setEditModeFalseAndRemoveEmptyText(updatedHistory);
+    // clear all edit states from history
     if(updatedHistory.length > 0 && !editMode) {
-        // updatedHistory = removeEmptyTextItems(updatedHistory);
         updatedHistory = removeAllEditModeFromHistory(updatedHistory);
     }
-    // todo: will probably still need to change all prev stages of history to editMode = false
 
     // set new item as latest change at end of list
     updatedHistory.push(newObject);
     
     // ensure list is no longer than MAX_HISTORY steps long
-    if(updatedHistory.length > MAX_HISTORY) limitListLength(updatedHistory, MAX_HISTORY);
+    if(updatedHistory.length > MAX_HISTORY) updatedHistory = limitListLength(updatedHistory, MAX_HISTORY);
 
     return [...updatedHistory];
 }

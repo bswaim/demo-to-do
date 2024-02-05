@@ -1,6 +1,6 @@
 import React from "react";
-import ToggleSwitch from "../atom/ToggleSwitch";
 import PropTypes from "prop-types";
+import ToggleSwitch from "../atom/ToggleSwitch";
 import ToDoApp from "../organism/ToDoApp";
 
 function LandingPage({
@@ -8,7 +8,7 @@ function LandingPage({
      themeSelection
 }) {
     return (
-        <div className='max-w-2xl'>
+        <div className='bg-white h-full w-full'>
             <header className='mb-4'>
                 <ToggleSwitch
                     className="ml-4 mt-4"
