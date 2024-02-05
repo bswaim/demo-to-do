@@ -1,25 +1,23 @@
-import React, {useState} from "react";
+import React from "react";
 import ToggleSwitch from "../atom/ToggleSwitch";
 import PropTypes from "prop-types";
-
-// function NavButton() {
-//     return (<button className="bg-red-500"> I'm a button</button>);
-// }
+import ToDoApp from "../organism/ToDoApp";
 
 function LandingPage({
      setThemeSelection = Function.prototype,
      themeSelection
 }) {
-    // const [themeSelection, setThemeSelection] = useState(true);
-    // const theme = themeSelection ? 'dark-theme' : 'light-theme';
-
     return (
-        <header>
-            <ToggleSwitch
-                toggleOn={themeSelection}
-                onToggleChange={e => setThemeSelection(e)}
-             />
-        </header>
+        <div className='max-w-2xl'>
+            <header className='mb-4'>
+                <ToggleSwitch
+                    className="ml-4 mt-4"
+                    toggleOn={themeSelection}
+                    onToggleChange={e => setThemeSelection(e)}
+                 />
+            </header>
+            <ToDoApp />
+        </div>
     );
 }
 

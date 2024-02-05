@@ -2,6 +2,8 @@ import LandingPage from "./components/environment/LandingPage";
 import './index.css';
 import './css/atom/toggle.css'
 import {useState} from "react";
+// import {Provider} from "react-redux";
+// import store from "./redux/store";
 
 function App() {
 
