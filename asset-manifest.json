@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/demo/static/css/main.fd1b24e7.css",
+    "main.js": "/demo/static/js/main.6dee011f.js",
+    "static/js/787.0f7dc5a1.chunk.js": "/demo/static/js/787.0f7dc5a1.chunk.js",
+    "static/media/Brandy_Brasket__Resume_Frontend_Engineer.pdf": "/demo/static/media/Brandy_Brasket__Resume_Frontend_Engineer.6e7bf3f5f72c892af69c.pdf",
+    "static/media/Brandy_Brasket__Cover_Letter__Frontend_Engineer.pdf": "/demo/static/media/Brandy_Brasket__Cover_Letter__Frontend_Engineer.91ebfc3c0598cf4b1d6a.pdf",
+    "index.html": "/demo/index.html",
+    "main.fd1b24e7.css.map": "/demo/static/css/main.fd1b24e7.css.map",
+    "main.6dee011f.js.map": "/demo/static/js/main.6dee011f.js.map",
+    "787.0f7dc5a1.chunk.js.map": "/demo/static/js/787.0f7dc5a1.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fd1b24e7.css",
+    "static/js/main.6dee011f.js"
+  ]
+}
