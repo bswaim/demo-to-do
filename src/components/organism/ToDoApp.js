@@ -20,9 +20,8 @@ import {v4 as uuidv4} from "uuid";
 
 function ToDoApp() {
     const initialList = [
-        {text: 'Download resume using link', checked: false, editMode: false, id: uuidv4()},
-        {text: 'Download cover letter using link', checked: false, editMode: false, id: uuidv4()},
-        {text: 'View Recommendations on LinkedIn using link', checked: false, editMode: false, id: uuidv4()},
+        {text: 'View resume and cover letter', checked: false, editMode: false, id: uuidv4()},
+        {text: 'View Recommendations', checked: false, editMode: false, id: uuidv4()},
         {text: 'Make a to-do app', checked: true, editMode: false, id: uuidv4()}
     ]
     const [listHistoryState, setListHistoryState] = useState([{isCurrent: true, list: initialList, isInEditMode: false}]);
