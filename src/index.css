@@ -75,8 +75,6 @@ header {
 }
 
 a {
-    padding:5px 8px;
-    margin:6px;
     color: var(--secondary-text);
     border-radius:5px 5px 0px 0px;
     text-decoration:underline;
@@ -98,6 +96,13 @@ p {
 {
   #page {
     margin: 10px;
+  }
+
+  #page-content {
+    flex-direction: column;
+  }
+  #todo-list-section, #info-section {
+    width: 100%;
   }
 
   a {

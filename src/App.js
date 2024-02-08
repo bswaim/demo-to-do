@@ -14,7 +14,7 @@ function App() {
       <div id="page" className={theme}>
           <LandingPage
               themeSelection={themeSelection}
-              setThemeSelection={e => setThemeSelection(e.target.checked)}
+              setThemeSelection={e => setThemeSelection(e)}
            />
       </div>
   );

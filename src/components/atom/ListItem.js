@@ -58,7 +58,7 @@ function ListItem({
         // console.log(currentListView);
         // console.log('listHistoryState');
         // console.log(listHistoryState);
-        const updatedArray = updateItemText(id, itemText, false, currentListView);
+        const updatedArray = updateItemText(id, itemText, currentListView);
 
         console.log('updatedArray AFTER updating Item Text');
         console.log(updatedArray);
@@ -81,7 +81,7 @@ function ListItem({
 
         console.log('list 1');
         console.log(currentListView);
-        const updatedTextArray = updateItemText(id, itemText, false, currentListView);
+        const updatedTextArray = updateItemText(id, itemText, currentListView);
 
         // update text item in history
         let updateCurrentState = updateLatestChangeToDoHistory(updatedTextArray, listHistoryState);
@@ -128,7 +128,7 @@ function ListItem({
         />) :
             /* RENDER STATIC TEXT */
             <div
-                className='cursor-pointer text-left'
+                className='cursor-pointer text-left text-wrap break-all'
                 onClick={() => onStaticTextClick()}
                 id={`list-item-text-${id}`}
             >
@@ -159,16 +159,20 @@ function ListItem({
                     aria-labelledby={`label-${id}`}
                     type="checkbox"
                     checked={checked}
-                    className={classNames('mr-2 w-[24px] h-[24px]', {'font-bold': checked, 'font-light': !checked})}
+                    className={classNames('mr-2 w-[24px] h-[24px] min-w-[24px] min-h-[24px]', {'font-bold': checked, 'font-light': !checked})}
                     onChange={(e) => handleCheckboxChange(!checked)}
+                    onKeyDown={(e) => {
+                        if (e.key === 'Enter') handleCheckboxChange(!checked);
+                    }}
                 />
                 {renderTextOrInput()}
             </div>
             {/* DELETE INDIVIDUAL ITEM BUTTON */}
-            <div className='items-end' id={`to-do-delete-${id}`}>
+            <div className='items-end' data-testid='delete-icon' id={`to-do-delete-${id}`}>
                 <button
                     className='bold text-xl'
                     onClick={()=> onDeleteItem()}
+                    data-testid='delete-all-icon'
                 >
                     <FontAwesomeIcon icon={faCircleMinus} className='pt-2' />
                 </button>

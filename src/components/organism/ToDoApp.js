@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import AddListItem from "../atom/AddListItem";
 import {
     addNewItemToList,
@@ -16,61 +16,65 @@ import {
     faTrashAlt
 } from "@fortawesome/free-solid-svg-icons";
 import {find} from "lodash";
+import {v4 as uuidv4} from "uuid";
 
 function ToDoApp() {
-    const [listHistoryState, setListHistoryState] = useState([{isCurrent: true, list: [], isInEditMode: false}]);
-    const currentListView = find([...listHistoryState], x => x.isCurrent)?.list || [];
-
-    const undoEnabledLogic = !([...listHistoryState][0]?.isCurrent); // if first item in list is not current view
-    const redoEnabledLogic = !([...listHistoryState][listHistoryState.length -1]?.isCurrent); // if last item in list's isCurrent prop is NOT true
-
-
-    useEffect(() => {
-        //TEST
-        console.log('listHistoryState changed!');
-        console.log('listHistoryState');
-        console.log(listHistoryState);
-        // console.log('currentListView');
-        // console.log(currentListView);
-
-    }, [listHistoryState]);
+    const initialList = [
+        {text: 'Do a handstand', checked: false, editMode: false, id: uuidv4()},
+        {text: 'Make a to-do app', checked: true, editMode: false, id: uuidv4()}
+    ]
+    const [listHistoryState, setListHistoryState] = useState([{isCurrent: true, list: initialList, isInEditMode: false}]);
+    const currentListView = find(listHistoryState, x => x.isCurrent)?.list || [];
+    const undoEnabledLogic = !(listHistoryState[0]?.isCurrent); // if first item in list is not current view
+    const redoEnabledLogic = !(listHistoryState[listHistoryState.length -1]?.isCurrent); // if last item in list's isCurrent prop is NOT true
 
     const deleteAllItems = () => {
-        const updateCurrentState = updateLatestChangeToDoHistory([], listHistoryState)
+        const updateCurrentState = updateLatestChangeToDoHistory([], listHistoryState);
         setListHistoryState([...updateCurrentState])
     }
-    const deleteAllCompletedItems = () => {
+    const deleteCompletedItems = () => {
         const updatedArray = removeCheckedItems([...currentListView]);
-        const updateCurrentState = updateLatestChangeToDoHistory(updatedArray, listHistoryState)
+        const updateCurrentState = updateLatestChangeToDoHistory(updatedArray, listHistoryState);
         setListHistoryState([...updateCurrentState])
     }
-    const undoListStateChange = () => {
-        const updateCurrentState = moveCurrentState(listHistoryState);
+    const moveUpOrDownHistoryListState = (undo) => {
+        const updateCurrentState = moveCurrentState(listHistoryState, undo);
         setListHistoryState([...updateCurrentState]);
     }
-    const redoListStateChange = () => {
-        // setUndoRedoInProgress(true);
 
-        const updateCurrentState = moveCurrentState(listHistoryState, false);
-        setListHistoryState([...updateCurrentState]);
-    }
+    // todo: add a way to mark all completed
+    // const markAllCompleted = (list) => {
+    //     const updatedArray = checkAllItems(listHistoryState);
+    //     const updateCurrentState = updateLatestChangeToDoHistory(updatedArray, listHistoryState);
+    //     setListHistoryState([...updateCurrentState]);
+    // }
 
     return (
-        <div id='todo-id' className='todo-container bg-primary-bg max-w-2xl rounded-2xl border-2 border-solid border-black p-4'>
+        <div
+            id='todo-id'
+            data-testid='todo-id'
+            className='todo-container bg-primary-bg w-full rounded-2xl border-2 border-solid border-black p-4'
+        >
             <h1 className='text-center text-xl border-b-2 border-b-primary border-solid pb-2 pl-4 flex justify-between'>
                 <div>To-Do App</div>
                 {/* DELETE ALL ITEMS BUTTON */}
-                <button onClick={() => deleteAllItems()}>
+                <button
+                    aria-description='delete all list items'
+                    data-testid='delete-all-icon'
+                    id='delete-all-icon'
+                    name='delete-all-icon'
+                    onClick={() => deleteAllItems()}
+                >
                     <FontAwesomeIcon icon={faTrash} className='text-delete-color'/>
-                    <FontAwesomeIcon icon={faListCheck} className='text-delete-color ml-1'/>
                 </button>
             </h1>
-
             {/* TO DO ITEMS START */}
-            <CheckListSection
-                listHistoryState={listHistoryState}
-                setListHistoryState={(e) => setListHistoryState([...e])} // need to update list
-            />
+            <div className='mt-4'>
+                <CheckListSection
+                    listHistoryState={listHistoryState}
+                    setListHistoryState={(e) => setListHistoryState([...e])} // need to update list
+                />
+            </div>
             <div className='text-left'>
                 <AddListItem onClicked={() => {
                     const updatedArray = addNewItemToList(currentListView);
@@ -85,7 +89,13 @@ function ToDoApp() {
             {/* COMPLETED SECTION START */}
             <h2 className='text-left ml-6 flex justify-between'>
                 COMPLETED
-                <button onClick={() => deleteAllCompletedItems()}>
+                <button
+                    aria-description='delete all completed list items'
+                    id='delete-all-checked-icon'
+                    name='delete-all-checked-icon'
+                    data-testid='delete-all-checked-icon'
+                    onClick={() => deleteCompletedItems()}
+                >
                     <FontAwesomeIcon icon={faTrashAlt} className='text-delete-color'/>
                     <FontAwesomeIcon icon={faCheckDouble} className='text-delete-color ml-1'/>
                 </button>
@@ -96,23 +106,23 @@ function ToDoApp() {
                 setListHistoryState={(e) => setListHistoryState([...e])}
             />
 
-            {/* UNDO BUTTON */}
+            {/* UNDO AND REDO BUTTONS */}
             <div className='flex justify-between px-4 mt-8 text-2xl bg-white rounded-b-lg'>
                 <button
                     id='undo'
                     className={undoEnabledLogic ? 'cursor-pointer' : 'cursor-default'}
-                    onClick={() => undoListStateChange()}
-                    disabled={!(undoEnabledLogic)}
+                    onClick={() => moveUpOrDownHistoryListState(true)}
+                    data-testid='undo-icon'
+                    disabled={!undoEnabledLogic}
                 >
                     <FontAwesomeIcon icon={faRotateLeft} className={undoEnabledLogic ? 'text-secondary-text' : 'text-gray-500'}/>
                 </button>
-
-                {/* REDO BUTTON */}
                 <button
                     id='redo'
-                    className='cursor-pointer'
-                    onClick={() => redoListStateChange()}
-                    disabled={!(redoEnabledLogic)}
+                    className={redoEnabledLogic ? 'cursor-pointer' : 'cursor-default'}
+                    onClick={() => moveUpOrDownHistoryListState(false)}
+                    data-testid='redo-icon'
+                    disabled={!redoEnabledLogic}
                 >
                     <FontAwesomeIcon icon={faRotateRight} className={redoEnabledLogic ? 'text-secondary-text' : 'text-gray-500'}/>
                 </button>

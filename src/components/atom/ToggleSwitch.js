@@ -5,7 +5,7 @@ import {faMoon, faSun} from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames";
 
 function ToggleSwitch({
-    className,
+    className = '',
     onToggleChange = Function.prototype,
     toggleOn
 }) {
@@ -16,13 +16,15 @@ function ToggleSwitch({
         <label
             className={classNames(`switch ${className}`)}
             aria-label={ariaLabel}
+            data-testid='toggle-switch'
         >
             <input
                 type="checkbox"
-                onChange={(e) => onToggleChange(e)}
+                onChange={(e) => onToggleChange(e.target.checked)}
                 name="theme-selection-toggle"
                 role='checkbox'
                 checked={toggleOn}
+                data-testid='toggle-input'
             />
             <span className="slider round">
                 <FontAwesomeIcon icon={icon} className='mt-1.5' />
