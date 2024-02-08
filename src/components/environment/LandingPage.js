@@ -24,6 +24,7 @@ function LandingPage({
                 <div id='info-section' className='w-1/2 text-left text-yellow-950 m-2'>
                     <ul>
                         <li> <a
+                            className='underline'
                             href={Resume}
                             download="Brandy_Brasket__Resume_Frontend_Engineer"
                             target='_blank'
@@ -32,6 +33,7 @@ function LandingPage({
                         </a>
                         </li>
                         <li> <a
+                            className='underline'
                             href={CoverLetter}
                             download='Brandy_Brasket__Cover_Letter__Frontend_Engineer'
                             target='_blank'
@@ -41,6 +43,7 @@ function LandingPage({
                         </li>
                         <li>
                             <a
+                                className='underline'
                                 href='https://www.linkedin.com/in/brandy-brasket-84689746/details/recommendations/'
                                 target='_blank'
                                 aria-label='See my recommendations on LinkedIn'
