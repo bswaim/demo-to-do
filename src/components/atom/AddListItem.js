@@ -10,7 +10,11 @@ function AddListItem({
     return (
         <div className='flex' >
             <button
+                aria-label='add-new-icon'
+                id='add-new-icon'
+                name='add-new-icon'
                 data-testid='add-new-icon'
+                type='button'
                 className='text-2xl ml-4 m-2 pt-.5 pb-1 px-2 rounded font-bold'
                 onClick={() => onClicked()}
             >

@@ -4,6 +4,9 @@ import ToggleSwitch from "../atom/ToggleSwitch";
 import ToDoApp from "../organism/ToDoApp";
 import Resume from "../../downloads/Brandy_Brasket__Resume_Frontend_Engineer.pdf"
 import CoverLetter from "../../downloads/Brandy_Brasket__Cover_Letter__Frontend_Engineer.pdf"
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faDownload, faExternalLink, faLink} from "@fortawesome/free-solid-svg-icons";
+import {faLinkedin} from "@fortawesome/free-brands-svg-icons";
 function LandingPage({
      setThemeSelection = Function.prototype,
      themeSelection
@@ -21,15 +24,22 @@ function LandingPage({
                 <div id='todo-list-section' className='w-1/2'><ToDoApp /></div>
 
                 {/* DOWNLOADS AND LINK */}
-                <div id='info-section' className='w-1/2 text-left text-yellow-950 m-2'>
-                    <ul>
+                <div id='info-section' className='w-1/2 text-left text-yellow-950 mx-2'>
+                    <div className='italic opacity-75'>
+                        This is a demonstration of my ability to build a react application.
+                        I will add more features to it, as written on my to do list.
+                        In the meantime, check out its current features.
+                        Resume and cover letter are available below, as well as a link to my Recommendations.
+                    </div>
+                    <ul className='mt-4'>
                         <li> <a
                             className='underline'
                             href={Resume}
                             download="Brandy_Brasket__Resume_Frontend_Engineer"
                             target='_blank'
                         >
-                            Download my resume
+                            Download my resume &nbsp;
+                            <FontAwesomeIcon icon={faDownload} />
                         </a>
                         </li>
                         <li> <a
@@ -38,7 +48,8 @@ function LandingPage({
                             download='Brandy_Brasket__Cover_Letter__Frontend_Engineer'
                             target='_blank'
                         >
-                            Download my cover letter
+                            Download my cover letter &nbsp;
+                            <FontAwesomeIcon icon={faDownload} />
                         </a>
                         </li>
                         <li>
@@ -48,11 +59,12 @@ function LandingPage({
                                 target='_blank'
                                 aria-label='See my recommendations on LinkedIn'
                             >
-                            Recommendations on LinkedIn
+                                View My Recommendations <FontAwesomeIcon textAnchor='LinkedIn' icon={faLinkedin} /> &nbsp;
+                                <FontAwesomeIcon icon={faExternalLink}/>
                             </a>
                         </li>
-                        <li className='italic opacity-75'> More references available upon request </li>
                     </ul>
+                    <div className='italic opacity-75'> More references available upon request. </div>
                 </div>
             </div>
         </div>

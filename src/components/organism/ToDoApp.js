@@ -9,7 +9,6 @@ import CheckListSection from "../molecule/CheckListSection";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faCheckDouble,
-    faListCheck,
     faRotateLeft,
     faRotateRight,
     faTrash,
@@ -20,9 +19,20 @@ import {v4 as uuidv4} from "uuid";
 
 function ToDoApp() {
     const initialList = [
-        {text: 'View resume and cover letter', checked: false, editMode: false, id: uuidv4()},
-        {text: 'View Recommendations', checked: false, editMode: false, id: uuidv4()},
-        {text: 'Make a to-do app', checked: true, editMode: false, id: uuidv4()}
+        {text: 'Add ability to mark all as done', checked: false, editMode: false, id: uuidv4()},
+        {text: 'Add ability to customize title', checked: false, editMode: false, id: uuidv4()},
+        {text: 'Add drag and drop feature', checked: false, editMode: false, id: uuidv4()},
+        {text: 'Fix empty buttons and orphaned labels', checked: false, editMode: false, id: uuidv4()},
+        {text: 'Add a share/print button', checked: false, editMode: false, id: uuidv4()},
+        {text: 'Make a light and dark mode', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Begin todo app react demo', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Add functions for \'enter\' keys', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Check tab order', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Write unit tests for utils', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Add link for resume', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Add link for cover letter', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Add link for recs', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Add link to GitHub source code', checked: true, editMode: false, id: uuidv4()}
     ]
     const [listHistoryState, setListHistoryState] = useState([{isCurrent: true, list: initialList, isInEditMode: false}]);
     const currentListView = find(listHistoryState, x => x.isCurrent)?.list || [];
@@ -60,11 +70,13 @@ function ToDoApp() {
                 <div>To-Do App</div>
                 {/* DELETE ALL ITEMS BUTTON */}
                 <button
+                    type='button'
                     aria-description='delete all list items'
                     data-testid='delete-all-icon'
                     id='delete-all-icon'
                     name='delete-all-icon'
                     onClick={() => deleteAllItems()}
+                    value='delete list'
                 >
                     <FontAwesomeIcon icon={faTrash} className='text-delete-color'/>
                 </button>
@@ -96,6 +108,7 @@ function ToDoApp() {
                     name='delete-all-checked-icon'
                     data-testid='delete-all-checked-icon'
                     onClick={() => deleteCompletedItems()}
+                    type='button'
                 >
                     <FontAwesomeIcon icon={faTrashAlt} className='text-delete-color'/>
                     <FontAwesomeIcon icon={faCheckDouble} className='text-delete-color ml-1'/>
@@ -111,19 +124,23 @@ function ToDoApp() {
             <div className='flex justify-between px-4 mt-8 text-2xl bg-white rounded-b-lg'>
                 <button
                     id='undo'
+                    name='undo'
                     className={undoEnabledLogic ? 'cursor-pointer' : 'cursor-default'}
                     onClick={() => moveUpOrDownHistoryListState(true)}
                     data-testid='undo-icon'
                     disabled={!undoEnabledLogic}
+                    type='button'
                 >
                     <FontAwesomeIcon icon={faRotateLeft} className={undoEnabledLogic ? 'text-secondary-text' : 'text-gray-500'}/>
                 </button>
                 <button
                     id='redo'
+                    name='redo'
                     className={redoEnabledLogic ? 'cursor-pointer' : 'cursor-default'}
                     onClick={() => moveUpOrDownHistoryListState(false)}
                     data-testid='redo-icon'
                     disabled={!redoEnabledLogic}
+                    type='button'
                 >
                     <FontAwesomeIcon icon={faRotateRight} className={redoEnabledLogic ? 'text-secondary-text' : 'text-gray-500'}/>
                 </button>

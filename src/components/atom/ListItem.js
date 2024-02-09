@@ -24,7 +24,6 @@ function ListItem({
     setListHistoryState,
     text = ''
   }) {
-    // const currentListView = find(listHistoryState, x => x.isCurrent)?.list;
     const copyOfList = listHistoryState.slice();
     const currentListView = find(copyOfList, x => x.isCurrent)?.list || [];
     const [itemText, setItemText] = useState(text);
@@ -32,13 +31,6 @@ function ListItem({
     const handleCheckboxChange = (checkEvent) => {
         let updatedArray = currentListView;
 
-        // if(checkEvent) {
-        //     updatedArray = checkItem(id, updatedArray);
-        // }
-        //
-        // if(!checkEvent) {
-        //     updatedArray = unCheckItem(id, updatedArray);
-        // }
         updatedArray = changeCheckedState(id, updatedArray, checkEvent)
 
         const updateCurrentState = updateLatestChangeToDoHistory(updatedArray, listHistoryState);
@@ -53,24 +45,12 @@ function ListItem({
             return;
         }
 
-        // console.log('list to pass');
-        // console.log('currentListView');
-        // console.log(currentListView);
-        // console.log('listHistoryState');
-        // console.log(listHistoryState);
         const updatedArray = updateItemText(id, itemText, currentListView);
-
-        console.log('updatedArray AFTER updating Item Text');
-        console.log(updatedArray);
-
         const updateCurrentState = updateLatestChangeToDoHistory(updatedArray, listHistoryState);
 
-        console.log('updateCurrentState');
-        console.log(updateCurrentState);
-
-        // setListHistoryState([...updateCurrentState]);
         setListHistoryState(updateCurrentState);
     }
+
     const handleEnterKey = () => {
         if(isEmpty(itemText)) {
             // PERFORM AN UNDO IF ITEM TEXT IS EMPTY
@@ -79,26 +59,14 @@ function ListItem({
             return;
         }
 
-        console.log('list 1');
-        console.log(currentListView);
         const updatedTextArray = updateItemText(id, itemText, currentListView);
 
         // update text item in history
         let updateCurrentState = updateLatestChangeToDoHistory(updatedTextArray, listHistoryState);
 
-        console.log('updateCurrentState 1');
-        console.log(updateCurrentState);
-
         const updatedArrayWithNewItem = addNewItemToList(updatedTextArray);
-        console.log('updatedArrayWithNewItem');
-        console.log(updatedArrayWithNewItem);
 
         updateCurrentState = updateLatestChangeToDoHistory(updatedArrayWithNewItem, updateCurrentState, true);
-
-        console.log('updateCurrentState 2');
-        console.log(updateCurrentState);
-
-        // setListHistoryState([...updateCurrentState]);
         setListHistoryState(updateCurrentState);
     }
 
@@ -106,7 +74,6 @@ function ListItem({
         const updatedArray = changeEditMode(id, true, currentListView);
         const updateCurrentState = updateLatestChangeToDoHistory(updatedArray, listHistoryState, true);
 
-        // setListHistoryState([...updateCurrentState]);
         setListHistoryState(updateCurrentState);
     }
 
@@ -128,7 +95,7 @@ function ListItem({
         />) :
             /* RENDER STATIC TEXT */
             <div
-                className='cursor-pointer text-left text-wrap break-all'
+                className='cursor-pointer text-left text-wrap break-words'
                 onClick={() => onStaticTextClick()}
                 id={`list-item-text-${id}`}
             >
@@ -170,9 +137,12 @@ function ListItem({
             {/* DELETE INDIVIDUAL ITEM BUTTON */}
             <div className='items-end' data-testid='delete-icon' id={`to-do-delete-${id}`}>
                 <button
+                    data-testid='delete-all-icon'
+                    id='delete-all-icon'
+                    name='delete-all-icon'
+                    type='button'
                     className='bold text-xl'
                     onClick={()=> onDeleteItem()}
-                    data-testid='delete-all-icon'
                 >
                     <FontAwesomeIcon icon={faCircleMinus} className='pt-2' />
                 </button>

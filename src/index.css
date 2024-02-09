@@ -92,7 +92,14 @@ p {
     font-size: 1.5em;
 }
 
-@media screen and (max-width: 559px)
+#info-section {
+    padding-left: 2rem;
+}
+#info-section li {
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 768px)
 {
   #page {
     margin: 10px;
@@ -103,13 +110,14 @@ p {
   }
   #todo-list-section, #info-section {
     width: 100%;
+    padding-top: 2rem;
+    padding-left: 0;
   }
 
   a {
     padding:5px 0px;
     margin-left:0px;
     width: 100%;
-    display:block;
   }
 }
 
