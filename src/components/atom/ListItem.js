@@ -137,9 +137,9 @@ function ListItem({
             {/* DELETE INDIVIDUAL ITEM BUTTON */}
             <div className='items-end' data-testid='delete-icon' id={`to-do-delete-${id}`}>
                 <button
-                    data-testid='delete-all-icon'
-                    id='delete-all-icon'
-                    name='delete-all-icon'
+                    data-testid='delete-item-icon'
+                    id='delete-item-icon'
+                    name='delete-item-icon'
                     type='button'
                     className='bold text-xl'
                     onClick={()=> onDeleteItem()}

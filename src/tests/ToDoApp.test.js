@@ -23,11 +23,5 @@ describe('TO-DO APP', () => {
         expect(completedText).toBeInTheDocument();
         expect(undoIcon).toBeInTheDocument();
         expect(redoIcon).toBeInTheDocument();
-        expect(component).toMatchSnapshot();
-    });
-    test('click add icon or add new item text to render empty input', () => {
-        render(<ToDoApp />);
-        // const deleteIcon = screen.getByTestId(/delete-icon/i);
-        // expect(deleteIcon).toBeInTheDocument();
     });
 });

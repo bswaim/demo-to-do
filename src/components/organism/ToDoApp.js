@@ -24,15 +24,16 @@ function ToDoApp() {
         {text: 'Add drag and drop feature', checked: false, editMode: false, id: uuidv4()},
         {text: 'Fix empty buttons and orphaned labels', checked: false, editMode: false, id: uuidv4()},
         {text: 'Add a share/print button', checked: false, editMode: false, id: uuidv4()},
+        {text: 'Add more unit tests', checked: false, editMode: false, id: uuidv4()},
         {text: 'Make a light and dark mode', checked: true, editMode: false, id: uuidv4()},
         {text: 'Begin todo app react demo', checked: true, editMode: false, id: uuidv4()},
+        {text: 'Implement undo/redo function', checked: true, editMode: false, id: uuidv4()},
         {text: 'Add functions for \'enter\' keys', checked: true, editMode: false, id: uuidv4()},
         {text: 'Check tab order', checked: true, editMode: false, id: uuidv4()},
         {text: 'Write unit tests for utils', checked: true, editMode: false, id: uuidv4()},
         {text: 'Add link for resume', checked: true, editMode: false, id: uuidv4()},
         {text: 'Add link for cover letter', checked: true, editMode: false, id: uuidv4()},
-        {text: 'Add link for recs', checked: true, editMode: false, id: uuidv4()},
-        {text: 'Add link to GitHub source code', checked: true, editMode: false, id: uuidv4()}
+        {text: 'Add link for recs', checked: true, editMode: false, id: uuidv4()}
     ]
     const [listHistoryState, setListHistoryState] = useState([{isCurrent: true, list: initialList, isInEditMode: false}]);
     const currentListView = find(listHistoryState, x => x.isCurrent)?.list || [];

@@ -90,7 +90,7 @@ describe('utils', () => {
     test('moveCurrentState undo true', () => {
         const result = moveCurrentState(initialMoveCurrentMockData);
         const isCurrentIndex = result.findIndex(x => x.isCurrent);
-            expect(isCurrentIndex).toBe(0);
+        expect(isCurrentIndex).toBe(0);
     });
     test('moveCurrentState undo false', () => {
         const result = moveCurrentState(initialMoveCurrentMockData, false);
