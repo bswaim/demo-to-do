@@ -1,6 +1,6 @@
 {
-  "short_name": "Brasket Demo Site",
-  "name": "Brasket React Demo",
+  "short_name": "demo-to-do",
+  "name": "demo-to-do",
   "icons": [
     {
       "src": "favicon.ico",
