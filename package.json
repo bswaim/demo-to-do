@@ -1,6 +1,6 @@
 {
-  "name": "demo",
-  "homepage": "https://bswaim.github.io/demo/",
+  "name": "to-do-demo",
+  "homepage": "https://bswaim.github.io/to-do-demo/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
