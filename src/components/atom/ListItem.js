@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from "prop-types";
 import {
-    addNewItemToList, changeCheckedState,
+    addNewItemToList,
+    changeCheckedState,
     changeEditMode,
-    checkItem,
-    deleteItem, moveCurrentState,
-    unCheckItem,
+    deleteItem,
+    moveCurrentState,
     updateItemText,
     updateLatestChangeToDoHistory
 } from "../../utils/utils";
@@ -13,8 +13,6 @@ import {find, isEmpty} from "lodash";
 import classNames from "classnames";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCircleMinus} from "@fortawesome/free-solid-svg-icons";
-// import {updateLatestChangeToDoHistory} from "../../redux/actions";
-// import {useDispatch} from "react-redux";
 
 function ListItem({
     checked,
